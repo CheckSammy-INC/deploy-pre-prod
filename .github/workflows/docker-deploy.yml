@@ -40,7 +40,7 @@ jobs:
         script: |
           cd wordpress-base
           sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          sudo docker pull agsvk/wordpress-base:latest
+          sudo docker pull agsvk/test-wordpress-base:latest
           sudo docker stop container-wp-base || true
           sudo docker rm container-wp-base || true
-          sudo docker run -d --name container-wp-base -p 80:80 agsvk/wordpress-base:latest
+          sudo docker run -d --name container-wp-base -p 80:80 agsvk/test-wordpress-base:latest
