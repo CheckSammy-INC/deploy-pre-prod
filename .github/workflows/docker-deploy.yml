@@ -40,7 +40,8 @@ jobs:
         key: ${{ secrets.VPS_PRIVATE_KEY }}
         sudo_flags: -S
         script: |
-          sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+          # works! - sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           sudo docker pull agsvk/test-wordpress-base:latest
           sudo docker stop container-wp-base || true
           sudo docker rm container-wp-base || true
