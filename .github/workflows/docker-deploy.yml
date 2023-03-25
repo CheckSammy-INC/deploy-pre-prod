@@ -38,7 +38,6 @@ jobs:
         username: ${{ secrets.VPS_USERNAME }}
         key: ${{ secrets.VPS_PRIVATE_KEY }}
         script: |
-          cd wordpress-base
           sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           sudo docker pull agsvk/test-wordpress-base:latest
           sudo docker stop container-wp-base || true
