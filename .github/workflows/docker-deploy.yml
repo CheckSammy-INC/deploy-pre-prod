@@ -44,4 +44,4 @@ jobs:
           sudo docker pull agsvk/test-wordpress-base:latest
           sudo docker stop container-wp-base || true
           sudo docker rm container-wp-base || true
-          sudo docker run -d --name container-wp-base -p 80:80 agsvk/test-wordpress-base:latest
+          sudo docker run -d --name container-wp-base -p 8080:80 agsvk/test-wordpress-base:latest
