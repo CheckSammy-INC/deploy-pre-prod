@@ -75,4 +75,4 @@ jobs:
 
           sudo docker stop apache-container || true
           sudo docker rm apache-container || true
-          sudo docker run -d --name apache-container --network my-network -p 80:80 agsvk/apache-container:latest
+          sudo docker run -d --name apache-container --network my-network -p 8080:80 agsvk/apache-container:latest
