@@ -26,9 +26,29 @@ jobs:
         push: true
         tags: agsvk/test-wordpress-base:latest
 
+  build-and-push-apache:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: Build and push Apache Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./apache-container
+        push: true
+        tags: agsvk/apache-container:latest
+
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-push
+    needs: [build-and-push, build-and-push-apache]
 
     steps:
     - name: Deploy to CentOS VPS
@@ -42,7 +62,17 @@ jobs:
         script: |
           echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
           # works! - sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
           sudo docker pull agsvk/test-wordpress-base:latest
+          sudo docker pull agsvk/apache-container:latest
+
+          sudo docker network create my-network || true
+
           sudo docker stop container-wp-base || true
           sudo docker rm container-wp-base || true
-          sudo docker run -d --name container-wp-base -p 8080:80 agsvk/test-wordpress-base:latest
+          # sudo docker run -d --name container-wp-base -p 8080:80 agsvk/test-wordpress-base:latest
+          sudo docker run -d --name container-wp-base --network my-network -p 8080:80 agsvk/test-wordpress-base:latest
+
+          sudo docker stop apache-container || true
+          sudo docker rm apache-container || true
+          sudo docker run -d --name apache-container --network my-network -p 80:80 agsvk/apache-container:latest
