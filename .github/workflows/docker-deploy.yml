@@ -53,7 +53,7 @@ jobs:
     - uses: actions/checkout@main
 
     - name: Run build self-hosted
-      run: docker-compose up -d
+      run: /usr/local/docker/docker-compose up -d
 
   deploy:
     runs-on: ubuntu-latest
