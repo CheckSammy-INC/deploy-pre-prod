@@ -77,11 +77,10 @@ jobs:
 
           sudo docker network create my-network || true
 
-          sudo docker stop container-wp-base || true
-          sudo docker rm container-wp-base || true
-          # sudo docker run -d --name container-wp-base -p 8080:80 agsvk/test-wordpress-base:latest
+          sudo docker stop test-build-push-docker-image-deploy-vps-hosting_wordpress_1 || true
+          sudo docker rm test-build-push-docker-image-deploy-vps-hosting_wordpress_1 || true
           # Expose the apache-container to the host on port 8080, and allow the container-wp-base to communicate over the internal Docker network without exposing it to the host.
-          sudo docker run -d --name container-wp-base --network my-network agsvk/test-wordpress-base:latest
+          sudo docker run -d --name test-build-push-docker-image-deploy-vps-hosting_wordpress_1 --network my-network agsvk/test-wordpress-base:latest
 
           sudo docker stop apache-container || true
           sudo docker rm apache-container || true
