@@ -14,4 +14,4 @@ COPY ./wp-content/plugins/my-theme /var/www/html/wp-content/plugins/my-theme
 COPY ./docker-compose.yml /var/www/html/
 
 # Expose the required ports (HTTP and/or HTTPS)
-EXPOSE 80 443
+# EXPOSE 80 443
