@@ -52,19 +52,6 @@ jobs:
     steps:
     - uses: actions/checkout@main
 
-    - name: Cache apt packages
-      uses: actions/cache@v2
-      with:
-        path: /var/cache/apt/archives
-        key: ${{ runner.os }}-apt-${{ hashFiles('**/docker-deploy.yml') }}
-        restore-keys: |
-              ${{ runner.os }}-apt-
-
-    - name: Install Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
-
     - name: Run build self-hosted
       run: docker-compose up -d
 
