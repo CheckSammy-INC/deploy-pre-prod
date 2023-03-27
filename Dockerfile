@@ -11,7 +11,7 @@ COPY ./wp-content/themes/my-theme /var/www/html/wp-content/themes/my-theme
 COPY ./wp-content/plugins/my-theme /var/www/html/wp-content/plugins/my-theme
 
 #COPY ./docker-entrypoint.sh /usr/local/bin/
-#COPY ./docker-compose.yml /var/www/html/
+COPY ./docker-compose.yml /var/www/html/
 
 # Expose the required ports (HTTP and/or HTTPS)
 EXPOSE 80 443
